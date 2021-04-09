@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: machineinfo-app
+  namespace: dev
+  labels:
+    app: machineinfo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: machineinfo-app
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled      
+      labels:
+        app: machineinfo-app
+    spec:
+      containers:
+        - name: machineinfo-container
+          image: nehashirsat/devops_repo:v1.1.0
+          ports:
+            - containerPort: 9000

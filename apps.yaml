@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: machineinfo
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: production
+  source:
+    repoURL: https://github.com/nehashirsat/ArgocdPoc.git
+    targetRevision: HEAD
+    path: yamls
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: machineinfo
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
